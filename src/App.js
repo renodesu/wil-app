@@ -7,6 +7,7 @@ import About from "./components/About";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { AuthProvider } from "./contexts/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
 
 class App extends Component {
   render() {
@@ -31,7 +32,7 @@ class App extends Component {
             </ul>
             <div className="content">
               <Switch>
-                <Route exact path="/" component={Home} />
+                <PrivateRoute exact path="/" component={Home} />
                 <Route exact path="/campaigns" component={Campaign} />
                 <Route exact path="/about" component={About} />
                 <Route exact path="/login" component={Login} />
