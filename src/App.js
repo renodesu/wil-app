@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
+import Manage from "./components/Manage";
 
 class App extends Component {
   render() {
@@ -27,15 +28,17 @@ class App extends Component {
                 <Link to="/about">About</Link>
               </li>
               <li>
-                <Link to="/login">Login</Link>
+                <Link to="/auth/manage">Manage</Link>
               </li>
             </ul>
             <div className="content">
               <Switch>
-                <PrivateRoute exact path="/" component={Home} />
+                {/* Change to normal Route when moving user details to manage site */}
+                <PrivateRoute exact path="/" component={Home} /> 
                 <Route exact path="/campaigns" component={Campaign} />
                 <Route exact path="/about" component={About} />
                 <Route exact path="/login" component={Login} />
+                <PrivateRoute exact path="/auth/manage" component={Manage} />
                 <Route exact path="/register" component={Register} />
               </Switch>
             </div>
