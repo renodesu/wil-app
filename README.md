@@ -26,3 +26,17 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
+
+## Guide to not messing up the repo
+
+### `Modify`
+
+Create new branches if you want to modify something, name your branches after your purposes
+
+### `Commit`
+
+Commit message format as followed: Update/Modify "____what you have done____"
+
+### `Merge`
+
+Ask for review before merge
