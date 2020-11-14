@@ -39,4 +39,4 @@ Commit message format as followed: Update/Modify "____what you have done____"
 
 ### `Merge`
 
-Ask for review before merge
+Ask for review before merging
