@@ -7,8 +7,9 @@ import About from "./components/About";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { AuthProvider } from "./contexts/AuthContext";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 import Manage from "./components/Manage";
+import AuthRoute from "./routes/AuthRoute";
 
 class App extends Component {
   render() {
@@ -33,11 +34,11 @@ class App extends Component {
             </ul>
             <div className="content">
               <Switch>
-                {/* Change to normal Route when moving user details to manage site */}
+                {/* TODO: Change to normal Route when moving user details to manage site */}
                 <PrivateRoute exact path="/" component={Home} /> 
                 <Route exact path="/campaigns" component={Campaign} />
                 <Route exact path="/about" component={About} />
-                <Route exact path="/login" component={Login} />
+                <AuthRoute exact path="/login" component={Login} />
                 <PrivateRoute exact path="/auth/manage" component={Manage} />
                 <Route exact path="/register" component={Register} />
               </Switch>
