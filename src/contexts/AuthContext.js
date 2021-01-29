@@ -1,46 +1,48 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useState, useEffect } from 'react';
-import { auth } from '../firebase';
+import React, { useContext, useState, useEffect } from "react";
+import { auth } from "../firebase";
 
 const AuthContext = React.createContext();
 
 export function useAuth() {
-    return useContext(AuthContext);
+  return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }) {
-    const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState();
+  const [loading, setLoading] = useState(true);
 
-    function signup(firstname, lastname, age, email, password) {
-        return auth.createUserWithEmailAndPassword(email, password);
-    }
+  function signup(firstname, lastname, email, password) {
+    return auth.createUserWithEmailAndPassword(email, password);
+  }
 
-    function login(email, password) {
-        return auth.signInWithEmailAndPassword(email, password);
-    }
+  function login(email, password) {
+    return auth.signInWithEmailAndPassword(email, password);
+  }
 
-    function logout() {
-        return auth.signOut();
-    }
+  function logout() {
+    return auth.signOut();
+  }
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user);
-        })
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
 
-        return unsubscribe;
-    }, [])
+    return unsubscribe;
+  }, []);
 
-    const value = {
-        currentUser,
-        login,
-        signup,
-        logout
-    }
+  const value = {
+    currentUser,
+    login,
+    signup,
+    logout,
+  };
 
-    return (
-        <AuthContext.Provider value={ value }>
-            { children }
-        </AuthContext.Provider>
-    )
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }

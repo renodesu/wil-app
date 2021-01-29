@@ -1,10 +1,43 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Form, Card, Container, Button, Alert } from "react-bootstrap";
-//import Register from "./Register";
+import { Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import "fontsource-roboto";
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 export default function Login() {
+  const classes = useStyles();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,57 +54,126 @@ export default function Login() {
       setFormError("");
       setSubmitting(true);
       await login(email, password);
-      history.push('/');
+      history.push("/"); // Redirect to management site
     } catch {
-      setFormError("* Failed to create an account! *");
+      setFormError("* E-mail not registered or Password does not match! *");
     }
     setSubmitting(false);
   }
 
   // Login Front-end part ###################################################################################################################################################
-  return (
-    <>
-      <Container
-        className="d-flex align-items-center justify-content-center"
-        style={{ minHeight: "100vh" }}
-      >
-        <div className="w-100" style={{ maxWidth: "400px" }}>
-          <Card>
-            <Card.Body>
-              <h2 className="text-center mb-4">Login</h2>
-              {formError && <Alert variant="danger">{formError}</Alert>}
-              <Form onSubmit={handleSubmit}>
-                <Form.Group className="loginForm">
-                  <Form.Label>E-mail</Form.Label>
-                  <Form.Control
-                    name="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="E-mail address"
-                  />
-                </Form.Group>
-                <Form.Group className="loginForm">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                  />
-                </Form.Group>
+  // return (
+  //   <>
+  //     <Container
+  //       className="d-flex align-items-center justify-content-center"
+  //       style={{ minHeight: "50vh" }}
+  //     >
+  //       <div className="w-100" style={{ maxWidth: "400px" }}>
+  //         <Card>
+  //           <Card.Body>
+  //             <h2 className="text-center mb-4">Login</h2>
+  //             {formError && <Alert variant="danger">{formError}</Alert>}
+  //             <Form onSubmit={handleSubmit}>
+  //               <Form.Group className="loginForm">
+  //                 <Form.Label>E-mail</Form.Label>
+  //                 <Form.Control
+  //                   name="email"
+  //                   value={email}
+  //                   onChange={(e) => setEmail(e.target.value)}
+  //                   placeholder="E-mail address"
+  //                 />
+  //               </Form.Group>
+  //               <Form.Group className="loginForm">
+  //                 <Form.Label>Password</Form.Label>
+  //                 <Form.Control
+  //                   name="password"
+  //                   type="password"
+  //                   value={password}
+  //                   onChange={(e) => setPassword(e.target.value)}
+  //                   placeholder="Password"
+  //                 />
+  //               </Form.Group>
 
-                <Button type="submit" className="w-100" disabled={submitting}>
-                  Login
-                </Button>
-              </Form>
-            </Card.Body>
-          </Card>
-          <div className="w-100 text-center mt-2">
-            <p>Not a member? </p>
-            <Link to="/register">Sign up now!</Link>
-          </div>
-        </div>
-      </Container>
-    </>
+  //               <Button type="submit" className="w-100" disabled={submitting}>
+  //                 Login
+  //               </Button>
+  //             </Form>
+  //           </Card.Body>
+  //         </Card>
+  //         <div className="w-100 text-center mt-2">
+  //           <p>
+  //             Not a member?
+  //             <Link to="/register">Sign up now!</Link>
+  //           </p>
+  //         </div>
+  //       </div>
+  //     </Container>
+  //   </>
+  // );
+
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        {formError && <Alert variant="danger">{formError}</Alert>}
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="off"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            disabled={submitting}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs></Grid>
+            <Grid item>
+              <p>
+                Not a member?
+                <Link to="/register"> Sign up now!</Link>
+              </p>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
   );
 }

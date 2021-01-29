@@ -9,7 +9,7 @@ export default function AuthRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) => {
-        return currentUser ? <Redirect to="/"/> : <Component {...props}/>;
+        return currentUser ? <Redirect to="/" /> : <Component {...props} />;
       }}
     ></Route>
   );
