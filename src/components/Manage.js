@@ -12,12 +12,15 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Box from "@material-ui/core/Box";
 import { Typography } from "@material-ui/core";
+import { Alert } from "react-bootstrap";
 
 function Manage() {
   const [posts, setPosts] = useState([]);
   const db = firebase.firestore();
   const history = useHistory();
   const { currentUser } = useAuth();
+
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,17 +39,26 @@ function Manage() {
     history.push("/");
   }
 
-  function onVerify(id) {
-    db.collection("postdb").doc(id).update({
-      verified: true,
-    });
-    history.go();
+  async function onVerify(id) {
+    try {
+      setError("");
+      await db.collection("postdb").doc(id).update({
+        verified: true,
+      });
+      window.location.reload();
+    } catch {
+      setError("* Failed to verify posts *");
+    }
   }
 
-  function onDisapprove(id) {
-    db.collection("postdb").doc(id).update({
-      disapproved: true,
-    });
+  async function onDisapprove(id) {
+    try {
+      setError("");
+      await db.collection("postdb").doc(id).delete();
+      window.location.reload();
+    } catch {
+      setError("* Failed to delete posts *");
+    }
   }
 
   return (
@@ -55,6 +67,7 @@ function Manage() {
       <Container maxWidth="lg">
         <Header />
         <main>
+          {error && <Alert variant="danger">{error}</Alert>}
           <List>
             <Typography variant="h4">Management</Typography>
             {posts.map((post) => (

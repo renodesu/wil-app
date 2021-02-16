@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import "fontsource-roboto";
+import Footer from "../components/Footer"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -254,6 +255,7 @@ export default function Register() {
           </Grid>
         </form>
       </div>
+      <Footer title="Recycling 6" description="Recycling 6 - 2021 - WIL" />
     </Container>
   );
 }

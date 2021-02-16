@@ -50,7 +50,7 @@ const PostsList = () => {
         Advertisement
       </Typography>
       <div>
-        <Link to="/addposts">Want to advertise? Add yours here!</Link>
+        <Link to="/addposts">Want to advertise? Add yours!</Link>
       </div>
       <Grid item xs={12} md={12}>
         <Card className={classes.card}>

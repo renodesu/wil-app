@@ -61,56 +61,6 @@ export default function Login() {
     setSubmitting(false);
   }
 
-  // Login Front-end part ###################################################################################################################################################
-  // return (
-  //   <>
-  //     <Container
-  //       className="d-flex align-items-center justify-content-center"
-  //       style={{ minHeight: "50vh" }}
-  //     >
-  //       <div className="w-100" style={{ maxWidth: "400px" }}>
-  //         <Card>
-  //           <Card.Body>
-  //             <h2 className="text-center mb-4">Login</h2>
-  //             {formError && <Alert variant="danger">{formError}</Alert>}
-  //             <Form onSubmit={handleSubmit}>
-  //               <Form.Group className="loginForm">
-  //                 <Form.Label>E-mail</Form.Label>
-  //                 <Form.Control
-  //                   name="email"
-  //                   value={email}
-  //                   onChange={(e) => setEmail(e.target.value)}
-  //                   placeholder="E-mail address"
-  //                 />
-  //               </Form.Group>
-  //               <Form.Group className="loginForm">
-  //                 <Form.Label>Password</Form.Label>
-  //                 <Form.Control
-  //                   name="password"
-  //                   type="password"
-  //                   value={password}
-  //                   onChange={(e) => setPassword(e.target.value)}
-  //                   placeholder="Password"
-  //                 />
-  //               </Form.Group>
-
-  //               <Button type="submit" className="w-100" disabled={submitting}>
-  //                 Login
-  //               </Button>
-  //             </Form>
-  //           </Card.Body>
-  //         </Card>
-  //         <div className="w-100 text-center mt-2">
-  //           <p>
-  //             Not a member?
-  //             <Link to="/register">Sign up now!</Link>
-  //           </p>
-  //         </div>
-  //       </div>
-  //     </Container>
-  //   </>
-  // );
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

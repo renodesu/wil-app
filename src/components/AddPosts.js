@@ -53,23 +53,6 @@ export default function AddPosts() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // Add data to firestore
-    firebase
-      .firestore()
-      .collection("postdb")
-      .add({
-        title: title,
-        content: content,
-        creator: currentUser.email,
-        date: new Date().toUTCString(),
-        verified: false,
-        disapproved: false,
-      })
-      .then(() => {
-        setTitle("");
-        setContent("");
-      });
-
     if (title == "" || content == "") {
       return setFormError("* Please fill in required fields *");
     } else {
@@ -81,6 +64,21 @@ export default function AddPosts() {
       setFormSuccess(
         "Advertisement successfully added! It will be displayed after being verified by Admin"
       );
+      // Add data to firestore
+      firebase
+        .firestore()
+        .collection("postdb")
+        .add({
+          title: title,
+          content: content,
+          creator: currentUser.email,
+          date: new Date().toUTCString(),
+          verified: false
+        })
+        .then(() => {
+          setTitle("");
+          setContent("");
+        });
       setSubmitting(true);
     } catch {
       setFormError("* Failed to submit a post! *");
@@ -91,7 +89,7 @@ export default function AddPosts() {
 
   return (
     <Container maxWidth="lg">
-        <Header />
+      <Header />
       <Container component="main" maxWidth="md">
         <CssBaseline />
         <div className={classes.paper}>

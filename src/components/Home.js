@@ -38,7 +38,7 @@ export default function Home() {
         <Header />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container spacing={5} className={classes.mainGrid}>
+          <Grid container spacing={2} className={classes.mainGrid}>
             <Grid xs="8"><FeaturedContent title="Recycling in Australia" posts={posts} /></Grid>
             <Grid xs="4"><PostsList /></Grid>
           </Grid>
